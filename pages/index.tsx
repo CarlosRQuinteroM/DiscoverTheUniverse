@@ -3,8 +3,9 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
 import { CelestialBodyProps, DestinationProps } from "../src/components/types";
-import { Container } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
 import { NextPage } from "next";
+import { BitIcon } from "../components/icons";
 
 const Home: NextPage<CelestialBodyProps> = (data: any) => {
   const [bodies, setBodies] = useState<CelestialBodyProps[]>([]);
@@ -37,15 +38,26 @@ const Home: NextPage<CelestialBodyProps> = (data: any) => {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  justifyContent: "space-between",
                   margin: "2em",
                   backgroundColor: "black",
                   color: "white",
+                  minHeight: "270px",
                 }}
               >
-                <img src={imageUrl} style={{ maxWidth: "150px" }} />
-                <p>{body.name}</p>
-                <p>{body.type}</p>
+                <div>
+                  <img
+                    src={imageUrl}
+                    style={{ maxWidth: "160px", minHeight: "80px" }}
+                  />
+                </div>
+                <div>
+                  <p>{body.name}</p>
+                  <p>
+                    From 12
+                    <BitIcon />
+                  </p>
+                  <p>{body.type}</p>
+                </div>
               </div>
             </Link>
           );

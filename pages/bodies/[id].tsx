@@ -2,7 +2,7 @@
 import React from "react";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
-import { Card, CardColumns, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, FormGroup, Row, Form } from "react-bootstrap";
 import { CelestialBodyProps } from "../../src/components/types";
 
 const Planet: NextPage<CelestialBodyProps> = (data: any) => {
@@ -29,7 +29,7 @@ const Planet: NextPage<CelestialBodyProps> = (data: any) => {
                 <img
                   src={CelestialBody.images[0]}
                   alt="Image"
-                  style={{ maxWidth: "500px", minWidth: "400px" }}
+                  style={{ maxWidth: "300px", minWidth: "300px" }}
                 />
               </div>
             </Col>
@@ -44,9 +44,19 @@ const Planet: NextPage<CelestialBodyProps> = (data: any) => {
         <Container>
           <Row>
             <Col>
-              {Destinations.shuttles.map((shuttle: { id: React.Key | null | undefined; name: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }) => (
+              {Destinations.shuttles.map((shuttle: any) => (
                 <div key={shuttle.id}>
                   <p>{shuttle.name}</p>
+
+                  <Form>
+                    <FormGroup>
+                      <Form.Control as="select" custom>
+                        {shuttle.availableSeats.map((seat: string) => (
+                          <option key={seat}>{seat}</option>
+                        ))}
+                      </Form.Control>
+                    </FormGroup>
+                  </Form>
                 </div>
               ))}
             </Col>
