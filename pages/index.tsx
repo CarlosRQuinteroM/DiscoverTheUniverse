@@ -1,17 +1,17 @@
-import { NextPage } from "next";
+import Link from "next/link";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
 import { CelestialBodyProps, DestinationProps } from "../src/components/types";
 import { Container } from "react-bootstrap";
+import { NextPage } from "next";
 
-const Home = (data: any) => {
+const Home: NextPage<CelestialBodyProps> = (data: any) => {
   const [bodies, setBodies] = useState<CelestialBodyProps[]>([]);
 
   useEffect(() => {
     setBodies(data.data);
   }, [setBodies]);
-  console.log("Esto es ek cuerpo del DIV" + bodies);
 
   return (
     <section>
@@ -29,21 +29,25 @@ const Home = (data: any) => {
               ? body.images[0]
               : "https://invdes.com.mx/wp-content/uploads/2018/01/07-01-18-eris.jpg";
           return (
-            <div
-              key={body.id}
-              className="planet"
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "space-between",
-                margin: "2em",
-              }}
-            >
-              <img src={imageUrl} style={{ maxWidth: "150px" }} />
-              <p>{body.name}</p>
-              <p>{body.type}</p>
-            </div>
+            <Link href="/bodies/[id]" as={`/bodies/${body.id}`}>
+              <div
+                key={body.id}
+                className="planet"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  margin: "2em",
+                  backgroundColor: "black",
+                  color: "white",
+                }}
+              >
+                <img src={imageUrl} style={{ maxWidth: "150px" }} />
+                <p>{body.name}</p>
+                <p>{body.type}</p>
+              </div>
+            </Link>
           );
         })}
       </Container>
