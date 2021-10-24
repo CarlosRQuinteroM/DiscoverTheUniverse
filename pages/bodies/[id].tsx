@@ -70,7 +70,7 @@ const Planet: NextPage<CelestialBodyProps> = (data: any) => {
               // eslint-disable-next-line react/jsx-key
               <Row>
                 <Col className=" ml-auto" md="12">
-                  <div key={shuttle.id}>
+                  <div key={shuttle.id} id={`shuttle-${shuttle.name}`}>
                     <div className=" accordion my-3" id="accordionColapse">
                       <Card>
                         <CardHeader
@@ -90,9 +90,9 @@ const Planet: NextPage<CelestialBodyProps> = (data: any) => {
                             >
                               <Input type="radio" name="radio" />
                               <p>{shuttle.name}</p>
-                              <Button disabled>
+                              {/* <Button disabled>
                                 {shuttle.availableSeats.length} Seats
-                              </Button>
+                              </Button> */}
                               <p>
                                 {shuttle.basePrice}
                                 <BitIcon />
