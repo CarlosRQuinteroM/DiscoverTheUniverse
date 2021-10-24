@@ -39,6 +39,7 @@ const Planet: NextPage<CelestialBodyProps> = (data: any) => {
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
+            padding-top: 4em;
           `}
         >
           <Row
@@ -69,44 +70,88 @@ const Planet: NextPage<CelestialBodyProps> = (data: any) => {
             return (
               // eslint-disable-next-line react/jsx-key
               <Row>
-                <Col className=" ml-auto" md="12">
+                <Col className="" md="12">
                   <div key={shuttle.id} id={`shuttle-${shuttle.name}`}>
                     <div className=" accordion my-3" id="accordionColapse">
-                      <Card>
+                      <Card
+                        css={css`
+                          background: rgba(255, 255, 255, 0.1);
+                          border: 1px solid grey;
+                          color: white;
+                        `}
+                      >
                         <CardHeader
                           id="headingOne"
                           aria-expanded={openedCollapse === `${shuttle.id}`}
                         >
-                          <h5 className=" mb-0">
-                            <div
-                              onClick={() =>
-                                setOpenedCollapse(
-                                  openedCollapse === `${shuttle.id}`
-                                    ? ""
-                                    : `${shuttle.id}`
-                                )
-                              }
-                              className=" w-100 text-primary text-left"
-                            >
-                              <Input type="radio" name="radio" />
-                              <p>{shuttle.name}</p>
-                              {/* <Button disabled>
-                                {shuttle.availableSeats.length} Seats
-                              </Button> */}
-                              <p>
-                                {shuttle.basePrice}
-                                <BitIcon />
-                              </p>
-                              <div>
-                                <p>
-                                  <Location />
-                                  {shuttle.launchpadLocation}
-                                </p>
+                          <div
+                            onClick={() =>
+                              setOpenedCollapse(
+                                openedCollapse === `${shuttle.id}`
+                                  ? ""
+                                  : `${shuttle.id}`
+                              )
+                            }
+                            className=" w-100 text-primary text-left"
+                          >
+                            <Row>
+                              <Col
+                                sm={12}
+                                lg={4}
+                                css={css`
+                                  display: flex;
+                                  align-content: space-between;
+                                `}
+                              >
+                                <Input
+                                  type="radio"
+                                  name="radio"
+                                  className="mx-3"
+                                />
+                                <h3>{shuttle.name}</h3>
+                              </Col>
+                              <Col>
+                                <h3>
+                                  {shuttle.basePrice}
+                                  <BitIcon />
+                                </h3>
+                              </Col>
+                              <Col sm={12} lg={4}>
+                                <div
+                                  css={css`
+                                    display: flex;
+                                    justify-content: flex-end;
+                                    align-content: space-between;
+                                  `}
+                                >
+                                  <p>
+                                    <Location />
+                                    {shuttle.launchpadLocation}
+                                  </p>
+                                </div>
+                                <div
+                                  css={css`
+                                    width: 5em;
+                                    height: 2em;
+                                    border-radius: 4px;
+                                    border: 2px solid #e47004;
+                                    background-color: transparent;
+                                    color: #e47004;
+                                    text-align: center;
+                                  `}
+                                >
+                                  {`${shuttle.availableSeats.length} Seats`}
+                                </div>
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col sm={12} lg={12}>
                                 <p>Etd-Time: {shuttle.etd}</p>
                                 <p>Eta-Time: {shuttle.eta}</p>
-                              </div>
-                            </div>
-                          </h5>
+                              </Col>
+                              <Col></Col>
+                            </Row>
+                          </div>
                         </CardHeader>
 
                         <Form>
@@ -156,7 +201,9 @@ const Planet: NextPage<CelestialBodyProps> = (data: any) => {
                               <CardFooter>
                                 <Row>
                                   <Col>
-                                    <p>Total: {shuttle.basePrice}</p>
+                                    <p>
+                                      Total: {shuttle.basePrice} <BitIcon />
+                                    </p>
                                   </Col>
                                   <Col>
                                     <Link href="/bodies/confirmation" passHref>

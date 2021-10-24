@@ -11,7 +11,6 @@ const HeaderHome = () => {
         justify-content: center;
         align-items: center;
         width: 100%;
-        height: 70vh;
         margin-top: 3em;
         margin-bottom: 10px;
       `}
@@ -25,63 +24,43 @@ const HeaderHome = () => {
       >
         <div
           css={css`
-            display: flex;
-            position: absolute;
-            position: static;
-          `}
-        >
-          <Image
-            src="/marte_2.jpeg"
-            alt="Marte_2"
-            width={"250px"}
-            height={"200px"}
-          />
-        </div>
-        <div
-          css={css`
-            display: flex;
-            position: relative;
-            max-width: 20em;
-            min-height: 5em;
-            z-index: 10;
-          `}
-        >
-          <h1
-            css={css`
-              justify-content: center;
-              align-content: center;
-              font-family: "Orbitron", sans-serif;
-              font-size: 2.5em;
-              text-align: center;
-              letter-spacing: 0.05em;
-              mix-blend-mode: hard-light;
-              background: linear-gradient(66deg, #ffffff, #ff3d00);
-              background-clip: text;
-              -webkit-background-clip: text;
-              -moz-background-clip: text;
-              -moz-text-fill-color: transparent;
-              -webkit-text-fill-color: transparent;
-            `}
-          >
-            DISCOVER THE UNIVERSE
-          </h1>
-        </div>
-
-        <div
-          css={css`
-            display: flex;
-            position: relative;
-            justify-content: flex-end;
-            z-index: 0;
-            height: 100%;
-            width: 100%;
+            width: 50%;
           `}
         >
           <Image
             src="/marte_1.jpg"
             alt="Marte_1"
-            width={"250px"}
-            height={"200px"}
+            width={"256px"}
+            height={"329px"}
+          />
+        </div>
+        <div
+          css={css`
+            position: absolute;
+            top: 25%;
+            left: 20%;
+            z-index: 10;
+          `}
+        >
+          <Image
+          src="/disc.png"
+          alt="Title"
+          width={"712px"}
+          height={"152px"}
+          />
+        </div>
+
+        <div
+          css={css`
+            align-content: flex-end;
+            width: 50%;
+          `}
+        >
+          <Image
+            src="/marte_2.png"
+            alt="Marte_2"
+            width={"439px"}
+            height={"565px"}
           />
         </div>
       </Row>

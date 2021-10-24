@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import Head from "next/head";
+import Image from "next/image";
 import { css } from "@emotion/react";
 
 const Layout = (props: any) => {
@@ -19,9 +20,22 @@ const Layout = (props: any) => {
       <div
         css={css`
           background: #0e0e0e;
+          min-height: 100vh;
           @import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
         `}
       >
+        <div
+          css={css`
+            align-items: center;
+            justify-content: center;
+            display: flex;
+
+            padding-top: 2em;
+          `}
+        >
+          <Image src="/logo.png" alt=" Logo" width={134} height={39} />
+        </div>
+
         {props.children}
       </div>
     </div>
