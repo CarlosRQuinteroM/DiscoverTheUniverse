@@ -8,7 +8,7 @@ import { CelestialBodyProps, ShuttleProps } from "../src/types";
 import { Container, Form, Row } from "react-bootstrap";
 import { NextPage } from "next";
 import { BitIcon } from "../components/icons";
-// import HeaderHome from "../components/screens/HeaderHome";
+import HeaderHome from "../components/screens/HeaderHome";
 
 const Home: NextPage<CelestialBodyProps> = (data: any) => {
   const [bodies, setBodies] = useState<CelestialBodyProps[]>([]);
@@ -29,81 +29,7 @@ const Home: NextPage<CelestialBodyProps> = (data: any) => {
           align-items: center;
         `}
       >
-        <div
-          css={css`
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 60vh;
-            margin-bottom: 10px;
-          `}
-        >
-          <Row css={css`
-            display: flex;
-            align-content: center;
-            justify-content: center;
-          `}>
-            <div
-              css={css`
-                display: flex;
-                position: absolute;
-                position: static;
-              `}
-            >
-              <Image
-                src="/marte_2.jpeg"
-                alt="Marte_2"
-                width={"250px"}
-                height={"200px"}
-              />
-            </div>
-            <div
-              css={css`
-                display: flex;
-                position: relative;
-                max-width: 20em;
-                z-index: 10;
-              `}
-            >
-              <h1
-                css={css`
-                  justify-content: center;
-                  align-content: center;
-                  font-family: "Orbitron", sans-serif;
-                  font-size: 2em;
-                  text-align: center;
-                  letter-spacing: 0.05em;
-                  mix-blend-mode: hard-light;
-                  background: linear-gradient(66deg, #ffffff, #ff3d00);
-                  background-clip: text;
-                  -webkit-background-clip: text;
-                  -moz-background-clip: text;
-                  -moz-text-fill-color: transparent;
-                  -webkit-text-fill-color: transparent;
-                `}
-              >
-                DISCOVER THE UNIVERSE
-              </h1>
-            </div>
-            <div
-              css={css`
-                display: flex;
-                position: relative;
-                justify-content: flex-end;
-                z-index: 0;
-                height: 100%;
-                width: 100%;
-              `}
-            >
-              <Image
-                src="/marte_1.jpg"
-                alt="Marte_1"
-                width={"250px"}
-                height={"200px"}
-              />
-            </div>
-          </Row>
-        </div>
+        <HeaderHome />
         {bodies.map((body) => {
           const imageUrl: string =
             body.images.length > 0
@@ -116,25 +42,24 @@ const Home: NextPage<CelestialBodyProps> = (data: any) => {
                 className="planet"
                 css={css`
                   display: flex;
+                  position: static;
                   flex-direction: column;
                   align-items: flex-start;
                   padding: 24px;
                   background-color: #000000;
                   color: white;
-
-                  position: static;
                   width: 342.67px;
                   height: 315px;
                   left: 366.67px;
                   top: 0px;
-                  border-radius: 4px;
+                  margin: 8px;
                 `}
               >
                 <div>
                   <Image
                     src={imageUrl}
                     alt="Planets"
-                    width={150}
+                    width={342.67}
                     height={150}
                   />
                 </div>
