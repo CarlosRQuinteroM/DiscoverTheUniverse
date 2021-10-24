@@ -1,16 +1,31 @@
-/* eslint-disable @next/next/no-img-element */
-import React from "react";
+import React, { useState } from "react";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { useRouter } from "next/router";
-import { Col, Container, FormGroup, Row, Form } from "react-bootstrap";
+import Image from "next/image";
+import {
+  Col,
+  Container,
+  Row,
+  Button,
+  Collapse,
+  Card,
+  CardHeader,
+  CardBody,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+  CardFooter,
+} from "reactstrap";
 import { CelestialBodyProps } from "../../src/components/types";
-
+import { BitIcon } from "../../components/icons";
+import { Location } from "../../components/icons";
+import Link from "next/link";
 const Planet: NextPage<CelestialBodyProps> = (data: any) => {
-  const router = useRouter();
-  const { id } = router.query;
+  const [openedCollapse, setOpenedCollapse] = React.useState("collapseOne");
+
+  //
   const CelestialBody = data.dataBodies;
   const Destinations = data.dataDestination;
-  console.log(Destinations);
 
   return (
     <>
@@ -26,10 +41,11 @@ const Planet: NextPage<CelestialBodyProps> = (data: any) => {
           <Row style={{ display: "flex" }}>
             <Col sm={12} md={6} lg={6}>
               <div>
-                <img
+                <Image
                   src={CelestialBody.images[0]}
                   alt="Image"
-                  style={{ maxWidth: "300px", minWidth: "300px" }}
+                  width={400}
+                  height={300}
                 />
               </div>
             </Col>
@@ -42,25 +58,118 @@ const Planet: NextPage<CelestialBodyProps> = (data: any) => {
           </Row>
         </Container>
         <Container>
-          <Row>
-            <Col>
-              {Destinations.shuttles.map((shuttle: any) => (
-                <div key={shuttle.id}>
-                  <p>{shuttle.name}</p>
+          {Destinations.shuttles.map((shuttle: any) => {
+            return (
+              // eslint-disable-next-line react/jsx-key
+              <Row>
+                <Col className=" ml-auto" md="12">
+                  <div key={shuttle.id}>
+                    <div className=" accordion my-3" id="accordionColapse">
+                      <Card>
+                        <CardHeader
+                          id="headingOne"
+                          aria-expanded={openedCollapse === `${shuttle.id}`}
+                        >
+                          <h5 className=" mb-0">
+                            <div
+                              onClick={() =>
+                                setOpenedCollapse(
+                                  openedCollapse === `${shuttle.id}`
+                                    ? ""
+                                    : `${shuttle.id}`
+                                )
+                              }
+                              className=" w-100 text-primary text-left"
+                            >
+                              <Input type="radio" name="radio" />
+                              <p>{shuttle.name}</p>
+                              <Button disabled>
+                                {shuttle.availableSeats.length} Seats
+                              </Button>
+                              <p>
+                                {shuttle.basePrice}
+                                <BitIcon />
+                              </p>
+                              <div>
+                                <p>
+                                  <Location />
+                                  {shuttle.launchpadLocation}
+                                </p>
+                                <p>Etd-Time: {shuttle.etd}</p>
+                                <p>Eta-Time: {shuttle.eta}</p>
+                              </div>
+                            </div>
+                          </h5>
+                        </CardHeader>
 
-                  <Form>
-                    <FormGroup>
-                      <Form.Control as="select" custom>
-                        {shuttle.availableSeats.map((seat: string) => (
-                          <option key={seat}>{seat}</option>
-                        ))}
-                      </Form.Control>
-                    </FormGroup>
-                  </Form>
-                </div>
-              ))}
-            </Col>
-          </Row>
+                        <Form>
+                          <FormGroup>
+                            <Collapse
+                              isOpen={openedCollapse === `${shuttle.id}`}
+                              aria-labelledby="headingOne"
+                              id={shuttle.id}
+                            >
+                              <CardBody>
+                                <Row>
+                                  <Col>
+                                    <Form as="select" custom>
+                                      <FormGroup>
+                                        <Label for="name">Name</Label>
+                                        <Input
+                                          type="text"
+                                          name="name"
+                                          id="name"
+                                          placeholder="e.g. John"
+                                        />
+                                        <Label for="surname">Surname</Label>
+                                        <Input
+                                          type="text"
+                                          name="surname"
+                                          id="surname"
+                                          placeholder="e.g. Smith"
+                                        />
+                                        <Label for="seat">Seat</Label>
+                                        <Input
+                                          type="select"
+                                          name="seat"
+                                          id="seat"
+                                        >
+                                          {shuttle.availableSeats.map(
+                                            (seat: string) => (
+                                              <option key={seat}>{seat}</option>
+                                            )
+                                          )}
+                                        </Input>
+                                      </FormGroup>
+                                    </Form>
+                                  </Col>
+                                  <Col>Extras</Col>
+                                </Row>
+                              </CardBody>
+                              <CardFooter>
+                                <Row>
+                                  <Col>
+                                    <p>Total: {shuttle.basePrice}</p>
+                                  </Col>
+                                  <Col>
+                                    <Link href="/bodies/confirmation" passHref>
+                                      <Button type="submit" color="warning">
+                                        Buy Now
+                                      </Button>
+                                    </Link>
+                                  </Col>
+                                </Row>
+                              </CardFooter>
+                            </Collapse>
+                          </FormGroup>
+                        </Form>
+                      </Card>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+            );
+          })}
         </Container>
       </section>
     </>
@@ -73,7 +182,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = bodyData.map((planet: any) => ({
     params: { id: `${planet.id}` },
   }));
-  console.log(paths);
   return {
     paths,
     fallback: false,

@@ -1,6 +1,6 @@
 import Link from "next/link";
-import _ from "lodash";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 
 import { CelestialBodyProps, DestinationProps } from "../src/components/types";
 import { Container, Form } from "react-bootstrap";
@@ -45,16 +45,18 @@ const Home: NextPage<CelestialBodyProps> = (data: any) => {
                 }}
               >
                 <div>
-                  <img
+                  <Image
                     src={imageUrl}
-                    style={{ maxWidth: "160px", minHeight: "80px" }}
+                    alt="Planets"
+                    width={150}
+                    height={150}
                   />
                 </div>
                 <div>
                   <p>{body.name}</p>
                   <p>
                     From 12
-                    <BitIcon />
+                    <BitIcon Style={{ maxWidth: "10px" }} />
                   </p>
                   <p>{body.type}</p>
                 </div>
