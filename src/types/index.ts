@@ -16,6 +16,7 @@ export interface CelestialBodyProps {
   images: string[];
 }
 export interface ShuttleProps {
+  shuttles: [];
   id: number;
   name: string;
   capacity: number;

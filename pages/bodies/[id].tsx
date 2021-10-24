@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import React, { useState } from "react";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Image from "next/image";
@@ -16,10 +18,11 @@ import {
   Label,
   CardFooter,
 } from "reactstrap";
-import { CelestialBodyProps } from "../../src/components/types";
+import { CelestialBodyProps } from "../../src/types";
 import { BitIcon } from "../../components/icons";
 import { Location } from "../../components/icons";
 import Link from "next/link";
+
 const Planet: NextPage<CelestialBodyProps> = (data: any) => {
   const [openedCollapse, setOpenedCollapse] = React.useState("collapseOne");
 
@@ -31,14 +34,18 @@ const Planet: NextPage<CelestialBodyProps> = (data: any) => {
     <>
       <section>
         <Container
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          css={css`
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+          `}
         >
-          <Row style={{ display: "flex" }}>
+          <Row
+            css={css`
+              display: flex;
+            `}
+          >
             <Col sm={12} md={6} lg={6}>
               <div>
                 <Image

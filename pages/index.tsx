@@ -1,28 +1,34 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
-import { CelestialBodyProps, DestinationProps } from "../src/components/types";
+import { CelestialBodyProps, ShuttleProps } from "../src/types";
 import { Container, Form } from "react-bootstrap";
 import { NextPage } from "next";
 import { BitIcon } from "../components/icons";
+import HeaderHome from "../components/screens/HeaderHome";
 
 const Home: NextPage<CelestialBodyProps> = (data: any) => {
   const [bodies, setBodies] = useState<CelestialBodyProps[]>([]);
+  const [destinations, setDestinations] = useState<ShuttleProps[]>([]);
 
   useEffect(() => {
-    setBodies(data.data);
-  }, [setBodies]);
+    setBodies(data.dataBodies);
+    setDestinations(data.dataDestination);
+  }, [setBodies, setDestinations]);
 
   return (
     <section>
+      <HeaderHome />
       <Container
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        css={css`
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+        `}
       >
         {bodies.map((body) => {
           const imageUrl: string =
@@ -34,15 +40,21 @@ const Home: NextPage<CelestialBodyProps> = (data: any) => {
               <div
                 key={body.id}
                 className="planet"
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  margin: "2em",
-                  backgroundColor: "black",
-                  color: "white",
-                  minHeight: "270px",
-                }}
+                css={css`
+                  display: flex;
+                  flex-direction: column;
+                  align-items: flex-start;
+                  padding: 24px;
+                  background-color: #000000;
+                  color: white;
+
+                  position: static;
+                  width: 342.67px;
+                  height: 315px;
+                  left: 366.67px;
+                  top: 0px;
+                  border-radius: 4px;
+                `}
               >
                 <div>
                   <Image
@@ -52,13 +64,28 @@ const Home: NextPage<CelestialBodyProps> = (data: any) => {
                     height={150}
                   />
                 </div>
-                <div>
-                  <p>{body.name}</p>
+                <div
+                  css={css`
+                    flex: none;
+                    order: 1;
+                    flex-grow: 1;
+                    margin: 0px 24px;
+                  `}
+                >
+                  <div>
+                    <h3>{body.name}</h3>
+                    {`Type: ${
+                      body.type.charAt(0).toUpperCase() + body.type.slice(1)
+                    }`}
+                  </div>
                   <p>
-                    From 12
-                    <BitIcon Style={{ maxWidth: "10px" }} />
+                    From: 12
+                    <BitIcon
+                      css={css`
+                        max-width: 10px;
+                      `}
+                    />
                   </p>
-                  <p>{body.type}</p>
                 </div>
               </div>
             </Link>
@@ -71,7 +98,11 @@ const Home: NextPage<CelestialBodyProps> = (data: any) => {
 
 export async function getStaticProps() {
   const bodyResponse = await fetch("http://localhost:3005/bodies");
-  const data = await bodyResponse.json();
+  const dataBodies = await bodyResponse.json();
+
+  const bodyDestination = await fetch("http://localhost:3005/destinations");
+
+  const dataDestination = await bodyDestination.json();
 
   if (!bodyResponse) {
     return {
@@ -79,7 +110,7 @@ export async function getStaticProps() {
     };
   }
   return {
-    props: { data },
+    props: { dataBodies, dataDestination },
   };
 }
 
