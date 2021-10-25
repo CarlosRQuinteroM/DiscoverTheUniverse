@@ -1,10 +1,6 @@
 /** @jsxImportSource @emotion/react */
-
 import Head from "next/head";
-
 import { css } from "@emotion/react";
-import React from "react";
-import Logo from "./Logo";
 
 const Layout = (props: any) => {
   return (
@@ -26,7 +22,6 @@ const Layout = (props: any) => {
           @import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
         `}
       >
-        <Logo />
         {props.children}
       </div>
     </div>

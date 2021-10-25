@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { CelestialBodyProps, ShuttleProps } from "../src/types";
-import { Container, Form, Row } from "react-bootstrap";
+import { Container } from "reactstrap";
 import { NextPage } from "next";
 import { BitIcon } from "../components/icons";
 import HeaderHome from "../components/screens/HeaderHome";

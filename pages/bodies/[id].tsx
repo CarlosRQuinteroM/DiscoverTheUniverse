@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import {
@@ -18,7 +18,11 @@ import {
   Label,
   CardFooter,
 } from "reactstrap";
-import { CelestialBodyProps, ShuttleProps } from "../../src/types";
+import {
+  CelestialBodyProps,
+  DestinationProps,
+  ShuttleProps,
+} from "../../src/types";
 import { BitIcon } from "../../components/icons";
 import { Location } from "../../components/icons";
 import Link from "next/link";
@@ -26,9 +30,10 @@ import Link from "next/link";
 const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
   const [openedCollapse, setOpenedCollapse] = React.useState("collapseOne");
 
-  //
-  const CelestialBody = data.dataBodies;
-  const Destinations = data.dataDestination;
+  const celestialBody = data.dataBodies;
+  const destinations = data.dataDestination;
+  const extras = data.dataExtras;
+  console.log(extras[0]);
 
   return (
     <>
@@ -50,7 +55,7 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
             <Col sm={12} md={6} lg={6}>
               <div>
                 <Image
-                  src={CelestialBody.images[0]}
+                  src={celestialBody?.images[0]}
                   alt="Image"
                   width={400}
                   height={300}
@@ -59,14 +64,14 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
             </Col>
             <Col sm={12} md={6} lg={6}>
               <div>
-                <h1>{CelestialBody.name}</h1>
-                <p>{CelestialBody.description}</p>
+                <h1>{celestialBody?.name}</h1>
+                <p>{celestialBody?.description}</p>
               </div>
             </Col>
           </Row>
         </Container>
         <Container>
-          {Destinations.shuttles.map((shuttle: ShuttleProps) => {
+          {destinations.shuttles.map((shuttle: ShuttleProps) => {
             return (
               // eslint-disable-next-line react/jsx-key
               <Row>
@@ -158,11 +163,11 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                             <Collapse
                               isOpen={openedCollapse === `${shuttle.id}`}
                               aria-labelledby="headingOne"
-                              id={shuttle.id}
+                              id={openedCollapse}
                             >
                               <CardBody>
                                 <Row>
-                                  <Col>
+                                  <Col xs={12} sm={12} md={6} lg={6}>
                                     <Form as="select" custom>
                                       <FormGroup>
                                         <Label for="name">Name</Label>
@@ -194,7 +199,34 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                                       </FormGroup>
                                     </Form>
                                   </Col>
-                                  <Col>Extras</Col>
+                                  <Col xs={12} sm={12} md={6} lg={6}>
+                                    <Col>
+                                      <h3>Choose Some Extras</h3>
+                                    </Col>
+                                    <FormGroup check>
+                                      {extras.map((extra: any) => {
+                                        return (
+                                          <>
+                                            <Col
+                                              key={extra.id}
+                                              check
+                                              className="my-3"
+                                              id="extraForm"
+                                            >
+                                              <Label>
+                                                <Input
+                                                  type="checkbox"
+                                                  id="checkbox2"
+                                                />
+                                                {extra.name}
+                                              </Label>
+                                              <p>{extra.price}</p>
+                                            </Col>
+                                          </>
+                                        );
+                                      })}
+                                    </FormGroup>
+                                  </Col>
                                 </Row>
                               </CardBody>
                               <CardFooter>
@@ -249,15 +281,18 @@ export const getStaticProps: GetStaticProps = async (params: any) => {
   const bodyDestination = await fetch(
     ` http://localhost:3005/destinations/${params.params.id}`
   );
-
   const dataDestination = await bodyDestination.json();
-  if (!bodyResponse || !bodyDestination) {
+
+  const extraResponse = await fetch("http://localhost:3005/extras");
+  const dataExtras = await extraResponse.json();
+
+  if (!bodyResponse || !bodyDestination || !dataExtras) {
     return {
       notFound: true,
     };
   }
   return {
-    props: { dataBodies, dataDestination },
+    props: { dataBodies, dataDestination, dataExtras },
   };
 };
 
