@@ -11,10 +11,14 @@ const Corfirmation: NextPage = (data: any) => {
     <section
       css={css`
         height: 100vh;
-        background-image: url("/marte_3.jpg");
+        background-image: url("/images/marte_3.jpg");
         background-position: center;
         background-repeat: no-repeat;
         background-attachment: fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
         align-items: center;
         justify-content: center;
         display: flex;

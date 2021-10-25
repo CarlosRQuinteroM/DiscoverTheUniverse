@@ -18,12 +18,12 @@ import {
   Label,
   CardFooter,
 } from "reactstrap";
-import { CelestialBodyProps } from "../../src/types";
+import { CelestialBodyProps, ShuttleProps } from "../../src/types";
 import { BitIcon } from "../../components/icons";
 import { Location } from "../../components/icons";
 import Link from "next/link";
 
-const Planet: NextPage<CelestialBodyProps> = (data: any) => {
+const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
   const [openedCollapse, setOpenedCollapse] = React.useState("collapseOne");
 
   //
@@ -66,7 +66,7 @@ const Planet: NextPage<CelestialBodyProps> = (data: any) => {
           </Row>
         </Container>
         <Container>
-          {Destinations.shuttles.map((shuttle: any) => {
+          {Destinations.shuttles.map((shuttle: ShuttleProps) => {
             return (
               // eslint-disable-next-line react/jsx-key
               <Row>
@@ -153,7 +153,6 @@ const Planet: NextPage<CelestialBodyProps> = (data: any) => {
                             </Row>
                           </div>
                         </CardHeader>
-
                         <Form>
                           <FormGroup>
                             <Collapse

@@ -14,7 +14,7 @@ const HeaderHome = () => {
         margin-top: 3em;
         margin-bottom: 10px;
       `}
-    >
+    >  
       <Row
         css={css`
           display: flex;
@@ -28,7 +28,7 @@ const HeaderHome = () => {
           `}
         >
           <Image
-            src="/marte_1.jpg"
+            src="/images/marte_1.jpg"
             alt="Marte_1"
             width={"256px"}
             height={"329px"}
@@ -43,10 +43,10 @@ const HeaderHome = () => {
           `}
         >
           <Image
-          src="/disc.png"
-          alt="Title"
-          width={"712px"}
-          height={"152px"}
+            src="/images/disc.png"
+            alt="Title"
+            width={"712px"}
+            height={"152px"}
           />
         </div>
 
@@ -57,7 +57,7 @@ const HeaderHome = () => {
           `}
         >
           <Image
-            src="/marte_2.png"
+            src="/images/marte_2.png"
             alt="Marte_2"
             width={"439px"}
             height={"565px"}
