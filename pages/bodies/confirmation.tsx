@@ -11,7 +11,7 @@ const Corfirmation: NextPage = (data: any) => {
     <section
       css={css`
         height: 100vh;
-        background-image: url("/marte_3.jpg");
+        background-image: url("/images/marte_3.jpg");
         background-position: center;
         background-repeat: no-repeat;
         background-attachment: fixed;

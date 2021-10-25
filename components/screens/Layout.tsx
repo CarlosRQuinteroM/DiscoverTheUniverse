@@ -33,7 +33,7 @@ const Layout = (props: any) => {
             padding-top: 2em;
           `}
         >
-          <Image src="/logo.png" alt=" Logo" width={134} height={39} />
+          <Image src="/images/logo.png" alt=" Logo" width={134} height={39} />
         </div>
 
         {props.children}
