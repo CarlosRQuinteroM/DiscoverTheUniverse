@@ -6,7 +6,6 @@ import React from "react";
 import { Button, Card, Container } from "reactstrap";
 
 const Corfirmation: NextPage = (data: any) => {
-  console.log(data.data);
   return (
     <section
       css={css`

@@ -18,11 +18,7 @@ import {
   Label,
   CardFooter,
 } from "reactstrap";
-import {
-  CelestialBodyProps,
-  DestinationProps,
-  ShuttleProps,
-} from "../../src/types";
+import { CelestialBodyProps, ExtraProps, ShuttleProps } from "../../src/types";
 import { BitIcon } from "../../components/icons";
 import { Location } from "../../components/icons";
 import Link from "next/link";
@@ -33,7 +29,6 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
   const celestialBody = data.dataBodies;
   const destinations = data.dataDestination;
   const extras = data.dataExtras;
-  console.log(extras[0]);
 
   return (
     <>
@@ -101,8 +96,10 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                           >
                             <Row>
                               <Col
+                                xs={12}
                                 sm={12}
-                                lg={4}
+                                md={3}
+                                lg={3}
                                 css={css`
                                   display: flex;
                                   align-content: space-between;
@@ -121,7 +118,7 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                                   <BitIcon />
                                 </h3>
                               </Col>
-                              <Col sm={12} lg={4}>
+                              <Col xs={12} sm={12} md={3} lg={3}>
                                 <div
                                   css={css`
                                     display: flex;
@@ -136,8 +133,12 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                                 </div>
                                 <div
                                   css={css`
-                                    width: 5em;
+                                    display: flex;
+                                    position: relative;
+                                    text-align: center;
+                                    max-width: 6em;
                                     height: 2em;
+                                    bottom: 50px;
                                     border-radius: 4px;
                                     border: 2px solid #e47004;
                                     background-color: transparent;
@@ -145,12 +146,14 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                                     text-align: center;
                                   `}
                                 >
-                                  {`${shuttle.availableSeats.length} Seats`}
+                                  {shuttle.availableSeats.length <= 4
+                                    ? `Only ${shuttle.availableSeats.length} Seats`
+                                    : `${shuttle.availableSeats.length} Seats`}
                                 </div>
                               </Col>
                             </Row>
                             <Row>
-                              <Col sm={12} lg={12}>
+                              <Col xs={12} sm={12} md={3} lg={3}>
                                 <p>Etd-Time: {shuttle.etd}</p>
                                 <p>Eta-Time: {shuttle.eta}</p>
                               </Col>
@@ -204,7 +207,7 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                                       <h3>Choose Some Extras</h3>
                                     </Col>
                                     <FormGroup check>
-                                      {extras.map((extra: any) => {
+                                      {extras.map((extra: ExtraProps) => {
                                         return (
                                           <>
                                             <Col
@@ -220,7 +223,12 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                                                 />
                                                 {extra.name}
                                               </Label>
-                                              <p>{extra.price}</p>
+                                              <p>
+                                                {extra.price == "0"
+                                                  ? "Free"
+                                                  : extra.price}
+                                                <BitIcon />
+                                              </p>
                                             </Col>
                                           </>
                                         );
@@ -232,9 +240,14 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                               <CardFooter>
                                 <Row>
                                   <Col>
-                                    <p>
-                                      Total: {shuttle.basePrice} <BitIcon />
-                                    </p>
+                                    <h3
+                                      css={css`
+                                        color: gold;
+                                      `}
+                                    >
+                                      Total: {shuttle.basePrice}
+                                      <BitIcon />
+                                    </h3>
                                   </Col>
                                   <Col>
                                     <Link href="/bodies/confirmation" passHref>
