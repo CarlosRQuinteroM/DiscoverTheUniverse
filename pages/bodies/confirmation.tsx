@@ -15,6 +15,10 @@ const Corfirmation: NextPage = (data: any) => {
         background-position: center;
         background-repeat: no-repeat;
         background-attachment: fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
         align-items: center;
         justify-content: center;
         display: flex;
