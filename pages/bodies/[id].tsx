@@ -18,11 +18,7 @@ import {
   Label,
   CardFooter,
 } from "reactstrap";
-import {
-  CelestialBodyProps,
-  DestinationProps,
-  ShuttleProps,
-} from "../../src/types";
+import { CelestialBodyProps, ExtraProps, ShuttleProps } from "../../src/types";
 import { BitIcon } from "../../components/icons";
 import { Location } from "../../components/icons";
 import Link from "next/link";
@@ -33,7 +29,6 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
   const celestialBody = data.dataBodies;
   const destinations = data.dataDestination;
   const extras = data.dataExtras;
-  console.log(extras[0]);
 
   return (
     <>
@@ -212,7 +207,7 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                                       <h3>Choose Some Extras</h3>
                                     </Col>
                                     <FormGroup check>
-                                      {extras.map((extra: any) => {
+                                      {extras.map((extra: ExtraProps) => {
                                         return (
                                           <>
                                             <Col
@@ -229,9 +224,9 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                                                 {extra.name}
                                               </Label>
                                               <p>
-                                                {extra.price == 0
+                                                {extra.price == "0"
                                                   ? "Free"
-                                                  : extra.price}{" "}
+                                                  : extra.price}
                                                 <BitIcon />
                                               </p>
                                             </Col>
