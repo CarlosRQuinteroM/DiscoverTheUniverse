@@ -25,6 +25,8 @@ import Link from "next/link";
 
 const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
   const [openedCollapse, setOpenedCollapse] = React.useState("collapseOne");
+  const [selectedhuttle, setSelectedShuttle] = React.useState("");
+  console.log(selectedhuttle);
 
   const celestialBody = data.dataBodies;
   const destinations = data.dataDestination;
@@ -85,13 +87,14 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                           aria-expanded={openedCollapse === `${shuttle.id}`}
                         >
                           <div
-                            onClick={() =>
+                            onClick={(event: any) => {
+                              setSelectedShuttle(event.target.value);
                               setOpenedCollapse(
                                 openedCollapse === `${shuttle.id}`
                                   ? ""
                                   : `${shuttle.id}`
-                              )
-                            }
+                              );
+                            }}
                             className=" w-100 text-primary text-left"
                           >
                             <Row>
@@ -109,6 +112,7 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                                   type="radio"
                                   name="radio"
                                   className="mx-3"
+                                  value={shuttle.name}
                                 />
                                 <h3>{shuttle.name}</h3>
                               </Col>
@@ -224,7 +228,7 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                                                 {extra.name}
                                               </Label>
                                               <p>
-                                                {extra.price == "0"
+                                                {extra.price === "0.0"
                                                   ? "Free"
                                                   : extra.price}
                                                 <BitIcon />
