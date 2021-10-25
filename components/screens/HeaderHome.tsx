@@ -14,7 +14,7 @@ const HeaderHome = () => {
         margin-top: 3em;
         margin-bottom: 10px;
       `}
-    >
+    >  
       <Row
         css={css`
           display: flex;
@@ -43,10 +43,10 @@ const HeaderHome = () => {
           `}
         >
           <Image
-          src="/images/disc.png"
-          alt="Title"
-          width={"712px"}
-          height={"152px"}
+            src="/images/disc.png"
+            alt="Title"
+            width={"712px"}
+            height={"152px"}
           />
         </div>
 
