@@ -33,3 +33,12 @@ export interface ExtraProps {
   name: string;
   price: string;
 }
+
+export interface formProps {
+  name: string;
+  surname: string;
+  seat: string;
+  netflix: string;
+  gravity: string;
+  space: string;
+}

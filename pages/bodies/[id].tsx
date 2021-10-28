@@ -22,6 +22,7 @@ import {
   CelestialBodyProps,
   DestinationProps,
   ExtraProps,
+  formProps,
   ShuttleProps,
 } from "../../src/types";
 import { BitIcon } from "../../components/icons";
@@ -34,14 +35,13 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
   const [celestialBody, setCelestialBody] = useState<CelestialBodyProps>();
   const [destinations, setDestinations] = useState<DestinationProps>();
   const [extras, setExtras] = useState<ExtraProps[]>();
-  const [formBody, setFormBody] = useState({
+  const [formBody, setFormBody] = useState<formProps>({
     name: "",
     surname: "",
     seat: "",
     netflix: "",
     gravity: "",
     space: "",
-    total: "",
   });
 
   useEffect(() => {
@@ -124,7 +124,7 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
           {destinations?.shuttles.map((shuttle: ShuttleProps) => {
             return (
               // eslint-disable-next-line react/jsx-key
-              <Row>
+              <Row {...data}>
                 <Col className="" md="12">
                   <div key={shuttle.id} id={`shuttle-${shuttle.name}`}>
                     <div className=" accordion my-3" id="accordionColapse">
