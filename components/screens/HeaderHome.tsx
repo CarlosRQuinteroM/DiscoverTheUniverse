@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import React from "react";
 import Image from "next/image";
-import { Col, Container, Row } from "reactstrap";
+import { Row } from "reactstrap";
 
 const HeaderHome = () => {
   return (
@@ -14,7 +13,7 @@ const HeaderHome = () => {
         margin-top: 3em;
         margin-bottom: 10px;
       `}
-    >  
+    >
       <Row
         css={css`
           display: flex;
@@ -30,8 +29,8 @@ const HeaderHome = () => {
           <Image
             src="/images/marte_1.jpg"
             alt="Marte_1"
-            width={"256px"}
-            height={"329px"}
+            width={256}
+            height={329}
           />
         </div>
         <div
@@ -45,8 +44,8 @@ const HeaderHome = () => {
           <Image
             src="/images/disc.png"
             alt="Title"
-            width={"712px"}
-            height={"152px"}
+            width={712}
+            height={152}
           />
         </div>
 
@@ -59,8 +58,8 @@ const HeaderHome = () => {
           <Image
             src="/images/marte_2.png"
             alt="Marte_2"
-            width={"439px"}
-            height={"565px"}
+            width={439}
+            height={565}
           />
         </div>
       </Row>

@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-
-import { CelestialBodyProps, ShuttleProps } from "../src/types";
 import { Container } from "reactstrap";
 import { NextPage } from "next";
+
+import { CelestialBodyProps, ShuttleProps } from "../src/types";
 import { BitIcon } from "../components/icons";
 import HeaderHome from "../components/screens/HeaderHome";
 

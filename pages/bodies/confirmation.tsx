@@ -2,8 +2,7 @@
 import { css } from "@emotion/react";
 import { NextPage } from "next";
 import Link from "next/link";
-import React from "react";
-import { Button, Card, Container } from "reactstrap";
+import { Card, Container } from "reactstrap";
 
 const Corfirmation: NextPage = (data: any) => {
   return (
