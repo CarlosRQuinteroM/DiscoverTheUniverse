@@ -53,7 +53,13 @@ const Home: NextPage<CelestialBodyProps> = (data: any) => {
                   height: 315px;
                   left: 366.67px;
                   top: 0px;
-                  margin: 8px;
+                  margin: 12px;
+                  cursor: pointer;
+                  &:hover {
+                    transform: scale(1.05);
+                    transition: 0.4s;
+                    background-color: #0c0c0c;
+                  }
                 `}
               >
                 <div>
@@ -69,7 +75,7 @@ const Home: NextPage<CelestialBodyProps> = (data: any) => {
                     flex: none;
                     order: 1;
                     flex-grow: 1;
-                    margin: 0px 24px;
+                    margin: 24px;
                   `}
                 >
                   <div>
@@ -80,11 +86,7 @@ const Home: NextPage<CelestialBodyProps> = (data: any) => {
                   </div>
                   <p>
                     From: 12
-                    <BitIcon
-                      css={css`
-                        max-width: 10px;
-                      `}
-                    />
+                    <BitIcon />
                   </p>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import {
@@ -28,6 +28,7 @@ import {
 import { BitIcon } from "../../components/icons";
 import { Location } from "../../components/icons";
 import Link from "next/link";
+import ReturnHome from "../../components/utils/ReturnHome";
 
 const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
   const [openedCollapse, setOpenedCollapse] = useState("collapseOne");
@@ -108,15 +109,7 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                 Lo sentimos el destino {destinations?.name} no contiene Cohetes
                 disponibles.
               </h1>
-              <Link href="/" passHref>
-                <a
-                  css={css`
-                    color: white;
-                  `}
-                >
-                  Return Home
-                </a>
-              </Link>
+              <ReturnHome />
             </>
           ) : (
             ""
@@ -133,6 +126,11 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                           background: rgba(255, 255, 255, 0.1);
                           border: 1px solid grey;
                           color: white;
+                          cursor: pointer;
+                          &:hover {
+                            transform: scale(1.01);
+                            transition: 0.4s;
+                          }
                         `}
                       >
                         <CardHeader
@@ -284,6 +282,9 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                                             >
                                               <Label>
                                                 <Input
+                                                  css={css`
+                                                    cursor: pointer;
+                                                  `}
                                                   type="checkbox"
                                                   id="checkbox2"
                                                   name={extra.name
@@ -349,6 +350,7 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
               </Row>
             );
           })}
+          <ReturnHome />
         </Container>
       </section>
     </>
