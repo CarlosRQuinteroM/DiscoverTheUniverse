@@ -2,7 +2,6 @@
 import { css } from "@emotion/react";
 import Image from "next/image";
 
-
 const Logo = () => {
   return (
     <div

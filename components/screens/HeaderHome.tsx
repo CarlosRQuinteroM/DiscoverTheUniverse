@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import React from "react";
 import Image from "next/image";
-import { Col, Container, Row } from "reactstrap";
+import { Row } from "reactstrap";
 
 const HeaderHome = () => {
   return (
@@ -12,58 +11,77 @@ const HeaderHome = () => {
         align-items: center;
         width: 100%;
         margin-top: 3em;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
       `}
-    >  
-      <Row
+    >
+      <div
         css={css`
-          display: flex;
-          align-content: center;
           justify-content: center;
+          align-items: center;
+          margin-top: 3em;
         `}
       >
-        <div
+        <Row
           css={css`
-            width: 50%;
+            display: flex;
+            align-content: center;
+            justify-content: center;
           `}
         >
-          <Image
-            src="/images/marte_1.jpg"
-            alt="Marte_1"
-            width={"256px"}
-            height={"329px"}
-          />
-        </div>
-        <div
-          css={css`
-            position: absolute;
-            top: 25%;
-            left: 20%;
-            z-index: 10;
-          `}
-        >
-          <Image
-            src="/images/disc.png"
-            alt="Title"
-            width={"712px"}
-            height={"152px"}
-          />
-        </div>
+          <div
+            css={css`
+              width: 50%;
+            `}
+          >
+            <Image
+              src="/images/marte_1.jpg"
+              alt="Marte_1"
+              width={256}
+              height={329}
+            />
+          </div>
+          <div
+            css={css`
+              position: absolute;
+              /* top: 25%; */
+              /* left: -8%;  */
+              z-index: 10;
+              margin: auto;
+            `}
+          >
+            <h1
+              css={css`
+                font-family: "Orbitron", sans-serif;
+                font-size: 3.5em;
+                letter-spacing: 0.02em;
+                mix-blend-mode: hard-light;
+                background: linear-gradient(66deg, #ffffff, #ff3d00);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -moz-background-clip: text;
+                -moz-text-fill-color: transparent;
+                -webkit-text-fill-color: transparent;
+              `}
+            >
+              DISCOVER THE UNIVERSE
+            </h1>
+          </div>
 
-        <div
-          css={css`
-            align-content: flex-end;
-            width: 50%;
-          `}
-        >
-          <Image
-            src="/images/marte_2.png"
-            alt="Marte_2"
-            width={"439px"}
-            height={"565px"}
-          />
-        </div>
-      </Row>
+          <div
+            css={css`
+              align-content: flex-end;
+              width: 50%;
+            `}
+          >
+            <Image
+              src="/images/marte_2.png"
+              alt="Marte_2"
+              width={439}
+              height={565}
+            />
+          </div>
+        </Row>
+      </div>
     </div>
   );
 };

@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-
-import { CelestialBodyProps, ShuttleProps } from "../src/types";
 import { Container } from "reactstrap";
 import { NextPage } from "next";
+
+import { CelestialBodyProps, ShuttleProps } from "../src/types";
 import { BitIcon } from "../components/icons";
 import HeaderHome from "../components/screens/HeaderHome";
 
@@ -30,6 +30,7 @@ const Home: NextPage<CelestialBodyProps> = (data: any) => {
         `}
       >
         <HeaderHome />
+
         {bodies.map((body) => {
           const imageUrl: string =
             body.images.length > 0
@@ -52,7 +53,13 @@ const Home: NextPage<CelestialBodyProps> = (data: any) => {
                   height: 315px;
                   left: 366.67px;
                   top: 0px;
-                  margin: 8px;
+                  margin: 12px;
+                  cursor: pointer;
+                  &:hover {
+                    transform: scale(1.05);
+                    transition: 0.4s;
+                    background-color: #0c0c0c;
+                  }
                 `}
               >
                 <div>
@@ -68,7 +75,7 @@ const Home: NextPage<CelestialBodyProps> = (data: any) => {
                     flex: none;
                     order: 1;
                     flex-grow: 1;
-                    margin: 0px 24px;
+                    margin: 24px;
                   `}
                 >
                   <div>
@@ -79,11 +86,7 @@ const Home: NextPage<CelestialBodyProps> = (data: any) => {
                   </div>
                   <p>
                     From: 12
-                    <BitIcon
-                      css={css`
-                        max-width: 10px;
-                      `}
-                    />
+                    <BitIcon />
                   </p>
                 </div>
               </div>

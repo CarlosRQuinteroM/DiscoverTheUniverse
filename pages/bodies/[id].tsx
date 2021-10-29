@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import {
@@ -18,18 +18,53 @@ import {
   Label,
   CardFooter,
 } from "reactstrap";
-import { CelestialBodyProps, ExtraProps, ShuttleProps } from "../../src/types";
+import {
+  CelestialBodyProps,
+  DestinationProps,
+  ExtraProps,
+  formProps,
+  ShuttleProps,
+} from "../../src/types";
 import { BitIcon } from "../../components/icons";
 import { Location } from "../../components/icons";
 import Link from "next/link";
+import ReturnHome from "../../components/utils/ReturnHome";
 
 const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
-  const [openedCollapse, setOpenedCollapse] = React.useState("collapseOne");
+  const [openedCollapse, setOpenedCollapse] = useState("collapseOne");
+  const [selectedhuttle, setSelectedShuttle] = useState("");
+  const [celestialBody, setCelestialBody] = useState<CelestialBodyProps>();
+  const [destinations, setDestinations] = useState<DestinationProps>();
+  const [extras, setExtras] = useState<ExtraProps[]>();
+  const [formBody, setFormBody] = useState<formProps>({
+    name: "",
+    surname: "",
+    seat: "",
+    netflix: "",
+    gravity: "",
+    space: "",
+  });
 
-  const celestialBody = data.dataBodies;
-  const destinations = data.dataDestination;
-  const extras = data.dataExtras;
+  useEffect(() => {
+    setCelestialBody(data.dataBodies);
+    setDestinations(data.dataDestination);
+    setExtras(data.dataExtras);
+  }, [setCelestialBody, setDestinations, setExtras]);
 
+  const src = !celestialBody?.images
+    ? celestialBody?.images
+    : "https://invdes.com.mx/wp-content/uploads/2018/01/07-01-18-eris.jpg";
+
+  const handleUpdate = useCallback(
+    (event: any) => {
+      setFormBody({
+        ...formBody,
+        [event.target.name]: event.target.value,
+      } as any);
+    },
+    [formBody, setFormBody]
+  );
+  console.log(formBody);
   return (
     <>
       <section>
@@ -49,9 +84,11 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
           >
             <Col sm={12} md={6} lg={6}>
               <div>
+                <h1></h1>
                 <Image
-                  src={celestialBody?.images[0]}
-                  alt="Image"
+                  src={`${src}`}
+                  alt={celestialBody?.name}
+                  unoptimized={true}
                   width={400}
                   height={300}
                 />
@@ -66,10 +103,21 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
           </Row>
         </Container>
         <Container>
-          {destinations.shuttles.map((shuttle: ShuttleProps) => {
+          {!destinations?.shuttles[0] ? (
+            <>
+              <h1>
+                Lo sentimos el destino {destinations?.name} no contiene Cohetes
+                disponibles.
+              </h1>
+              <ReturnHome />
+            </>
+          ) : (
+            ""
+          )}
+          {destinations?.shuttles.map((shuttle: ShuttleProps) => {
             return (
               // eslint-disable-next-line react/jsx-key
-              <Row>
+              <Row {...data}>
                 <Col className="" md="12">
                   <div key={shuttle.id} id={`shuttle-${shuttle.name}`}>
                     <div className=" accordion my-3" id="accordionColapse">
@@ -78,6 +126,11 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                           background: rgba(255, 255, 255, 0.1);
                           border: 1px solid grey;
                           color: white;
+                          cursor: pointer;
+                          &:hover {
+                            transform: scale(1.01);
+                            transition: 0.4s;
+                          }
                         `}
                       >
                         <CardHeader
@@ -85,13 +138,14 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                           aria-expanded={openedCollapse === `${shuttle.id}`}
                         >
                           <div
-                            onClick={() =>
+                            onClick={(event: any) => {
+                              setSelectedShuttle(event.target.value);
                               setOpenedCollapse(
                                 openedCollapse === `${shuttle.id}`
                                   ? ""
                                   : `${shuttle.id}`
-                              )
-                            }
+                              );
+                            }}
                             className=" w-100 text-primary text-left"
                           >
                             <Row>
@@ -109,6 +163,7 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                                   type="radio"
                                   name="radio"
                                   className="mx-3"
+                                  value={shuttle.name}
                                 />
                                 <h3>{shuttle.name}</h3>
                               </Col>
@@ -154,8 +209,8 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                             </Row>
                             <Row>
                               <Col xs={12} sm={12} md={3} lg={3}>
+                                <p>atd-Time: {shuttle.eta}</p>
                                 <p>Etd-Time: {shuttle.etd}</p>
-                                <p>Eta-Time: {shuttle.eta}</p>
                               </Col>
                               <Col></Col>
                             </Row>
@@ -177,6 +232,9 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                                         <Input
                                           type="text"
                                           name="name"
+                                          onChange={handleUpdate}
+                                          required
+                                          value={formBody.name}
                                           id="name"
                                           placeholder="e.g. John"
                                         />
@@ -184,6 +242,9 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                                         <Input
                                           type="text"
                                           name="surname"
+                                          onChange={handleUpdate}
+                                          required
+                                          value={formBody.surname}
                                           id="surname"
                                           placeholder="e.g. Smith"
                                         />
@@ -191,6 +252,9 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                                         <Input
                                           type="select"
                                           name="seat"
+                                          onChange={handleUpdate}
+                                          required
+                                          value={formBody.seat}
                                           id="seat"
                                         >
                                           {shuttle.availableSeats.map(
@@ -207,7 +271,7 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                                       <h3>Choose Some Extras</h3>
                                     </Col>
                                     <FormGroup check>
-                                      {extras.map((extra: ExtraProps) => {
+                                      {extras?.map((extra: ExtraProps) => {
                                         return (
                                           <>
                                             <Col
@@ -218,13 +282,22 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                                             >
                                               <Label>
                                                 <Input
+                                                  css={css`
+                                                    cursor: pointer;
+                                                  `}
                                                   type="checkbox"
                                                   id="checkbox2"
+                                                  name={extra.name
+                                                    .split(" ")[0]
+                                                    .toLowerCase()}
+                                                  onChange={handleUpdate}
+                                                  required
+                                                  value={extra.price}
                                                 />
                                                 {extra.name}
                                               </Label>
                                               <p>
-                                                {extra.price == "0"
+                                                {extra.price === "0.0"
                                                   ? "Free"
                                                   : extra.price}
                                                 <BitIcon />
@@ -239,19 +312,28 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                               </CardBody>
                               <CardFooter>
                                 <Row>
-                                  <Col>
+                                  <Col
+                                    value={shuttle.basePrice}
+                                    onChange={handleUpdate}
+                                    name="total"
+                                  >
                                     <h3
                                       css={css`
                                         color: gold;
                                       `}
                                     >
-                                      Total: {shuttle.basePrice}
+                                      Total:
+                                      {parseInt(shuttle.basePrice)}
                                       <BitIcon />
                                     </h3>
                                   </Col>
                                   <Col>
                                     <Link href="/bodies/confirmation" passHref>
-                                      <Button type="submit" color="warning">
+                                      <Button
+                                        onClick={(e) => handleUpdate(e)}
+                                        type="submit"
+                                        color="warning"
+                                      >
                                         Buy Now
                                       </Button>
                                     </Link>
@@ -268,6 +350,7 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
               </Row>
             );
           })}
+          <ReturnHome />
         </Container>
       </section>
     </>
