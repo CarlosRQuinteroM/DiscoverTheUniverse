@@ -30,6 +30,7 @@ const Home: NextPage<CelestialBodyProps> = (data: any) => {
         `}
       >
         <HeaderHome />
+
         {bodies.map((body) => {
           const imageUrl: string =
             body.images.length > 0
