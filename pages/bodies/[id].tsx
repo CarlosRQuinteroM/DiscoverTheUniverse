@@ -286,9 +286,9 @@ const Planet: NextPage<CelestialBodyProps[]> = (data: any) => {
                                                 <Input
                                                   type="checkbox"
                                                   id="checkbox2"
-                                                  name={
-                                                    extra.name.split(" ")[0]
-                                                  }
+                                                  name={extra.name
+                                                    .split(" ")[0]
+                                                    .toLowerCase()}
                                                   onChange={handleUpdate}
                                                   required
                                                   value={extra.price}
