@@ -2,14 +2,18 @@
 import { css } from "@emotion/react";
 import Image from "next/image";
 import { Row } from "reactstrap";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const HeaderHome = () => {
+  const size = useWindowSize();
+  console.log(size);
+
   return (
     <div
       css={css`
         justify-content: center;
         align-items: center;
-        width: 100%;
+        width: ${size.width}px;
         margin-top: 3em;
         margin-bottom: 20px;
       `}
@@ -30,7 +34,10 @@ const HeaderHome = () => {
         >
           <div
             css={css`
+              position: relative;
+              top: -80px;
               width: 50%;
+              left: 20px;
             `}
           >
             <Image
@@ -43,16 +50,16 @@ const HeaderHome = () => {
           <div
             css={css`
               position: absolute;
-              /* top: 25%; */
-              /* left: -8%;  */
               z-index: 10;
               margin: auto;
+              max-width: ${size.width}px;
             `}
           >
             <h1
               css={css`
                 font-family: "Orbitron", sans-serif;
-                font-size: 3.5em;
+                font-size: ${size.width <= 400 ? "2em " : "3.5em"};
+                /* font-size: 2.5em; */
                 letter-spacing: 0.02em;
                 mix-blend-mode: hard-light;
                 background: linear-gradient(66deg, #ffffff, #ff3d00);
